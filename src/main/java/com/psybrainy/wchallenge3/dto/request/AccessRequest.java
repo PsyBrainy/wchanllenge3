@@ -6,7 +6,6 @@ public class AccessRequest {
     private String access;
 
 
-
     public Long getUserId() {
         return userId;
     }
