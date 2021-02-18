@@ -1,5 +1,6 @@
 package com.psybrainy.wchallenge3.service;
 
+import com.psybrainy.wchallenge3.dto.request.AccessRequest;
 import com.psybrainy.wchallenge3.dto.request.AlbumRequest;
 import com.psybrainy.wchallenge3.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,5 +14,9 @@ public class AlbumService {
 
     public AlbumRequest getById(Long id){
         return albumRepository.findById(id);
+    }
+
+    public void albumWithPermmission(AccessRequest accessRequest, Long albumId){
+        albumRepository.extendAlbum(accessRequest,albumId);
     }
 }

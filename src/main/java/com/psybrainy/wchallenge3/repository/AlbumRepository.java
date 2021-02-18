@@ -1,6 +1,10 @@
 package com.psybrainy.wchallenge3.repository;
 
+import com.psybrainy.wchallenge3.dto.request.AccessRequest;
 import com.psybrainy.wchallenge3.dto.request.AlbumRequest;
+import com.psybrainy.wchallenge3.dto.response.AlbumResponse;
+import com.psybrainy.wchallenge3.repository.entity.AccessEntity;
+import com.psybrainy.wchallenge3.repository.entity.AlbumEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +18,10 @@ import java.util.Map;
 public class AlbumRepository {
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private DatabaseRepository repo;
 
     private static final String URL_ALBUM_ID = "https://jsonplaceholder.typicode.com/albums/{id}";
     private static final String URL_ALBUM = "https://jsonplaceholder.typicode.com/albums";
@@ -34,4 +41,21 @@ public class AlbumRepository {
 
         return restTemplate.getForObject(URL_ALBUM_ID, AlbumRequest.class, param);
     }
+
+    public void extendAlbum(AccessRequest accessRequest, Long albumId){
+
+        AlbumRequest albumRequest = findById(albumId);
+
+        AlbumEntity albumEntity = new AlbumEntity(albumRequest.getId(),
+                albumRequest.getUserId(), albumRequest.getTitle());
+
+        AlbumEntity album = repo.saveAlbum(albumEntity);
+
+        AccessEntity accessEntity = new AccessEntity(albumRequest.getId(),
+                accessRequest.getUserId(),accessRequest.getAccess(),album);
+
+        repo.saveAccess(accessEntity);
+    }
+
+
 }

@@ -1,9 +1,6 @@
 package com.psybrainy.wchallenge3.repository.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,15 +11,23 @@ public class AlbumEntity {
     @Column(name = "album_id")
     private Long albumId;
 
-    @Column(name = "ouner_id")
+    @Column(name = "owner_id")
     private Long ownerId;
 
     @Column(name = "title")
     private String title;
 
+    @OneToMany(mappedBy = "albumEntity")
     private List<AccessEntity> access;
 
+    public AlbumEntity() {
+    }
 
+    public AlbumEntity(Long albumId, Long ownerId, String title) {
+        this.albumId = albumId;
+        this.ownerId = ownerId;
+        this.title = title;
+    }
 
     public List<AccessEntity> getAccess() {
         return access;
