@@ -24,4 +24,6 @@ public class AlbumController {
         albumService.albumWithPermmission(accessRequest,albumId);
     }
 
+
+
 }

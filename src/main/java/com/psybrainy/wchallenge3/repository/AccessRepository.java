@@ -7,7 +7,9 @@ import com.psybrainy.wchallenge3.repository.mapper.AccessMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -19,6 +21,12 @@ public class AccessRepository {
     @Autowired
     AccessMapper mapper;
 
+
+    public Optional<List<AccessRequest>> getByAlbunAndAccess(Long albumId, String access){
+        return Optional.of(accessCrud.findByIdAlbumAndAccess(albumId,access)
+                .map(accessEntities -> mapper.toAccessRequest((AccessEntity) accessEntities))
+                .stream().collect(Collectors.toList()));
+    }
 
     public AccessRequest saveAccess(AccessRequest accessRequest){
         AccessEntity accessEntity = mapper.toAccessEntity(accessRequest);
