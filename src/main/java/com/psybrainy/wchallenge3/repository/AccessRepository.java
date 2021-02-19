@@ -13,14 +13,17 @@ public class AccessRepository {
     @Autowired
     DatabaseRepository repo;
 
-    public AccessRequest updatePermissionByAlbum(Long albumId, Long userId) {
+    public AccessRequest updatePermissionByAlbum(AccessRequest access, Long albumId, Long userId) {
 
         Optional<AccessRequest> accessRequest = repo.findByIdAlbumAndUserId(albumId,userId);
 
-        AccessRequest accessRequest1 = accessRequest.get();
+        Optional<AccessRequest> accessSave = Optional
+                .of(new AccessRequest(accessRequest
+                        .get().getAccessId(), accessRequest.get().getAlbumId(),accessRequest.get().getAlbumTitle() ,
+                        accessRequest.get().getUserId(), access.getAccess()));
 
-        repo.saveAccess(accessRequest1);
+        access = accessSave.get();
 
-        return null;
+        return repo.saveAccess(access);
     }
 }

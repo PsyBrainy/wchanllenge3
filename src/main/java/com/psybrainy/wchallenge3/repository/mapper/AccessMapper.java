@@ -2,9 +2,6 @@ package com.psybrainy.wchallenge3.repository.mapper;
 
 import com.psybrainy.wchallenge3.dto.request.AccessRequest;
 import com.psybrainy.wchallenge3.repository.entity.AccessEntity;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -12,36 +9,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccessMapper {
 
-    @Autowired
-    private ModelMapper mapper;
 
     public AccessRequest toAccessRequest(AccessEntity accessEntity){
-        AccessRequest accessRequest = mapper.map(accessEntity,AccessRequest.class);
-        mapper.addMappings(new PropertyMap<AccessRequest, AccessEntity>() {
-            @Override
-            protected void configure() {
-                map().setUserId(source.getUserId());
-                map().setAccess(source.getAccess());
-            }
-        });
+        AccessRequest accessRequest = new AccessRequest();
 
+        accessRequest.setAccessId(accessEntity.getIdAccess());
+        accessRequest.setAlbumId(accessEntity.getIdAlbum());
+        accessRequest.setAlbumTitle(accessEntity.getAlbumTitle());
         accessRequest.setUserId(accessEntity.getUserId());
         accessRequest.setAccess(accessEntity.getAccess());
 
         return accessRequest;
-
     }
 
     public AccessEntity toAccessEntity(AccessRequest accessRequest) {
-        AccessEntity accessEntity = mapper.map(accessRequest,AccessEntity.class);
-        mapper.addMappings(new PropertyMap<AccessEntity, AccessRequest>() {
-            @Override
-            protected void configure() {
-                map().setUserId(source.getUserId());
-                map().setAccess(source.getAccess());
-            }
-        });
+        AccessEntity accessEntity = new AccessEntity();
 
+        accessEntity.setIdAccess(accessRequest.getAccessId());
+        accessEntity.setIdAlbum(accessRequest.getAlbumId());
+        accessEntity.setAlbumTitle(accessRequest.getAlbumTitle());
         accessEntity.setUserId(accessRequest.getUserId());
         accessEntity.setAccess(accessRequest.getAccess());
 

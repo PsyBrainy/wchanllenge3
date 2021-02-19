@@ -16,9 +16,9 @@ public class AccessController {
 
     @ResponseStatus
     @PutMapping("/{albumId}/user/{userId}")
-    public AccessRequest updatePermissionByAlbum(@PathVariable("albumId")Long albumId,
+    public AccessRequest updatePermissionByAlbum(@RequestBody AccessRequest accessRequest , @PathVariable("albumId")Long albumId,
                                                  @PathVariable("userId") Long userId){
-        return accessService.updatePermissionByAlbum(albumId,userId);
+        return accessService.updatePermissionByAlbum(accessRequest,albumId,userId);
     }
 
 }

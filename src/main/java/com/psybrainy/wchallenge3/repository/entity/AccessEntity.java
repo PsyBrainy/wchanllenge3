@@ -13,26 +13,23 @@ public class AccessEntity {
     @Column(name = "album_id")
     private Long idAlbum;
 
+    @Column(name = "album_title")
+    private String albumTitle;
+
     @Column(name = "user_id")
     private Long userId;
 
     @Column(name = "access")
     private String access;
 
-    @JoinColumn(name = "album_id", insertable = false, updatable = false)
-    @ManyToOne
-    private AlbumEntity albumEntity;
-
     public AccessEntity() {
     }
 
-
-
-    public AccessEntity(Long idAlbum, Long userId, String access, AlbumEntity albumEntity) {
+    public AccessEntity(Long idAlbum,String albumTitle , Long userId, String access) {
         this.idAlbum = idAlbum;
         this.userId = userId;
         this.access = access;
-        this.albumEntity = albumEntity;
+        this.albumTitle = albumTitle;
     }
 
     public Long getIdAccess() {
@@ -67,11 +64,11 @@ public class AccessEntity {
         this.access = access;
     }
 
-    public AlbumEntity getAlbumEntity() {
-        return albumEntity;
+    public String getAlbumTitle() {
+        return albumTitle;
     }
 
-    public void setAlbumEntity(AlbumEntity albumEntity) {
-        this.albumEntity = albumEntity;
+    public void setAlbumTitle(String albumTitle) {
+        this.albumTitle = albumTitle;
     }
 }

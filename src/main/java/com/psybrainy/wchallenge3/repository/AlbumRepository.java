@@ -3,7 +3,6 @@ package com.psybrainy.wchallenge3.repository;
 import com.psybrainy.wchallenge3.dto.request.AccessRequest;
 import com.psybrainy.wchallenge3.dto.request.AlbumRequest;
 import com.psybrainy.wchallenge3.repository.entity.AccessEntity;
-import com.psybrainy.wchallenge3.repository.entity.AlbumEntity;
 import com.psybrainy.wchallenge3.repository.mapper.AccessMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -49,13 +48,8 @@ public class AlbumRepository {
 
         AlbumRequest albumRequest = findById(albumId);
 
-        AlbumEntity albumEntity = new AlbumEntity(albumRequest.getId(),
-                albumRequest.getUserId(), albumRequest.getTitle());
-
-        AlbumEntity album = repo.saveAlbum(albumEntity);
-
-        AccessEntity accessEntity = new AccessEntity(albumRequest.getId(),
-                accessRequest.getUserId(),accessRequest.getAccess(),album);
+        AccessEntity accessEntity = new AccessEntity(albumRequest.getId(),albumRequest.getTitle(),
+                accessRequest.getUserId(),accessRequest.getAccess());
 
         AccessRequest access = mapper.toAccessRequest(accessEntity);
 
