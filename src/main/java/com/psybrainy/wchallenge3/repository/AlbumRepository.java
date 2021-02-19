@@ -20,7 +20,7 @@ public class AlbumRepository {
     private RestTemplate restTemplate;
 
     @Autowired
-    private DatabaseRepository repo;
+    private AccessRepository repo;
 
     @Autowired
     AccessMapper mapper;
