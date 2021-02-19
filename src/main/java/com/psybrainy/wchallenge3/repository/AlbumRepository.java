@@ -2,9 +2,9 @@ package com.psybrainy.wchallenge3.repository;
 
 import com.psybrainy.wchallenge3.dto.request.AccessRequest;
 import com.psybrainy.wchallenge3.dto.request.AlbumRequest;
-import com.psybrainy.wchallenge3.dto.response.AlbumResponse;
 import com.psybrainy.wchallenge3.repository.entity.AccessEntity;
 import com.psybrainy.wchallenge3.repository.entity.AlbumEntity;
+import com.psybrainy.wchallenge3.repository.mapper.AccessMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +22,9 @@ public class AlbumRepository {
 
     @Autowired
     private DatabaseRepository repo;
+
+    @Autowired
+    AccessMapper mapper;
 
     private static final String URL_ALBUM_ID = "https://jsonplaceholder.typicode.com/albums/{id}";
     private static final String URL_ALBUM = "https://jsonplaceholder.typicode.com/albums";
@@ -54,7 +57,9 @@ public class AlbumRepository {
         AccessEntity accessEntity = new AccessEntity(albumRequest.getId(),
                 accessRequest.getUserId(),accessRequest.getAccess(),album);
 
-        repo.saveAccess(accessEntity);
+        AccessRequest access = mapper.toAccessRequest(accessEntity);
+
+        repo.saveAccess(access);
     }
 
 

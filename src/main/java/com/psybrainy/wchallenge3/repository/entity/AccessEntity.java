@@ -26,6 +26,8 @@ public class AccessEntity {
     public AccessEntity() {
     }
 
+
+
     public AccessEntity(Long idAlbum, Long userId, String access, AlbumEntity albumEntity) {
         this.idAlbum = idAlbum;
         this.userId = userId;
@@ -50,7 +52,7 @@ public class AccessEntity {
     }
 
     public Long getUserId() {
-        return userId;
+        return this.userId;
     }
 
     public void setUserId(Long userId) {

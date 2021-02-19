@@ -1,5 +1,8 @@
 package com.psybrainy.wchallenge3.dto.request;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class AccessRequest {
 
     private Long userId;
