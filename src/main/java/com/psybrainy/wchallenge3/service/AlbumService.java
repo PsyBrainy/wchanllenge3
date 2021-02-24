@@ -6,6 +6,8 @@ import com.psybrainy.wchallenge3.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AlbumService {
 
@@ -18,5 +20,9 @@ public class AlbumService {
 
     public void albumWithPermmission(AccessRequest accessRequest, Long albumId){
         albumRepository.extendAlbum(accessRequest,albumId);
+    }
+
+    public List<AlbumRequest> getByUserId(Long userId){
+        return albumRepository.findByUserId(userId);
     }
 }

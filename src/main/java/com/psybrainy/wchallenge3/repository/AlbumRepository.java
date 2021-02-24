@@ -27,6 +27,7 @@ public class AlbumRepository {
 
     private static final String URL_ALBUM_ID = "https://jsonplaceholder.typicode.com/albums/{id}";
     private static final String URL_ALBUM = "https://jsonplaceholder.typicode.com/albums";
+    private static final String URL_ALBUM_USER_ID = "https://jsonplaceholder.typicode.com/albums?userId={userId}";
 
 
     public List<AlbumRequest> findAllAlbums(){
@@ -42,6 +43,16 @@ public class AlbumRepository {
         param.put("id",id );
 
         return restTemplate.getForObject(URL_ALBUM_ID, AlbumRequest.class, param);
+    }
+
+    public List<AlbumRequest> findByUserId(Long userId){
+        Map<String,Long> param = new HashMap<>();
+
+        param.put("userId",userId );
+
+        AlbumRequest[] albumRequests = restTemplate.getForObject(URL_ALBUM_USER_ID, AlbumRequest[].class, param);
+
+        return Arrays.asList(albumRequests);
     }
 
     public void extendAlbum(AccessRequest accessRequest, Long albumId){
