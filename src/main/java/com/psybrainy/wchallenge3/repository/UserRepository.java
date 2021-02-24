@@ -2,6 +2,7 @@ package com.psybrainy.wchallenge3.repository;
 
 import com.psybrainy.wchallenge3.dto.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class UserRepository {
 
     @Autowired

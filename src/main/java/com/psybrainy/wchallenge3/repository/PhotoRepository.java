@@ -28,7 +28,7 @@ public class PhotoRepository {
         return Arrays.asList(photoRequests);
     }
 
-    private List<PhotoRequest> findByAlbumId(Long albumId){
+    public List<PhotoRequest> findByAlbumId(Long albumId){
 
         Map<String,Long> param = new HashMap<>();
 
@@ -39,7 +39,7 @@ public class PhotoRepository {
         return Arrays.asList(photoRequests);
     }
 
-    private List<List<PhotoRequest>> findPhotosByUserId(Long userId){
+    public List<List<PhotoRequest>> findPhotosByUserId(Long userId){
 
         List<AlbumRequest> albumRequestList = albumService.getByUserId(userId);
         List<List<PhotoRequest>> photoRequestList = new ArrayList<>();

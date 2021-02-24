@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class PhotoRequest {
 
     private Long albumId;
-    private String urlPhoto;
+    private String url;
 
     public Long getAlbumId() {
         return albumId;
@@ -16,11 +16,11 @@ public class PhotoRequest {
         this.albumId = albumId;
     }
 
-    public String getUrlPhoto() {
-        return urlPhoto;
+    public String getUrl() {
+        return url;
     }
 
-    public void setUrlPhoto(String urlPhoto) {
-        this.urlPhoto = urlPhoto;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
