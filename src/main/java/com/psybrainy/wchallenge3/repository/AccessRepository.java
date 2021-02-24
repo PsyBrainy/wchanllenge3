@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 
 @Repository
@@ -26,7 +26,7 @@ public class AccessRepository {
 
     public List<AccessRequest> getByAlbunAndAccess(Long albumId, String access){
         List<AccessEntity> accessEntityList = (List<AccessEntity>) accessCrud.findByIdAlbumAndAccess(albumId,access);
-        Iterator<AccessEntity> myIterator=accessEntityList.iterator();
+        Iterator<AccessEntity> myIterator = accessEntityList.iterator();
         List<AccessRequest> accessRequests = new ArrayList<>();
         while (myIterator.hasNext()){
             accessRequests.add(mapper.toAccessRequest(myIterator.next()));
