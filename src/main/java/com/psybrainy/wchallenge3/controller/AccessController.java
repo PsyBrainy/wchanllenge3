@@ -24,7 +24,7 @@ public class AccessController {
     }
 
     @GetMapping("/{albumId}/shared/{access}")
-    public Optional<List<AccessRequest>> getByUsersByAccess(@PathVariable("albumId") Long albumId
+    public List<AccessRequest> getByUsersByAccess(@PathVariable("albumId") Long albumId
             , @PathVariable("access") String access){
         return accessService.getByAccess(albumId,access);
     }
