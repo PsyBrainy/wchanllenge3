@@ -18,7 +18,7 @@ public class AccessService {
         return accessRepository.updatePermissionByAlbum(accessRequest,albumId,userId);
     }
 
-    public Optional<List<AccessRequest>> getByAccess(Long albumId, String access) {
+    public List<AccessRequest> getByAccess(Long albumId, String access) {
         return accessRepository.getByAlbunAndAccess(albumId,access);
     }
 }
