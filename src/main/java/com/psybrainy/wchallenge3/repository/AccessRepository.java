@@ -22,10 +22,14 @@ public class AccessRepository {
     AccessMapper mapper;
 
 
-    public Optional<List<AccessRequest>> getByAlbunAndAccess(Long albumId, String access){
-        return Optional.of(accessCrud.findByIdAlbumAndAccess(albumId,access)
-                .map(accessEntities -> mapper.toAccessRequest((AccessEntity) accessEntities))
-                .stream().collect(Collectors.toList()));
+    public List<AccessRequest> getByAlbunAndAccess(Long albumId, String access){
+        List<AccessEntity> accessEntityList = (List<AccessEntity>) accessCrud.findByIdAlbumAndAccess(albumId,access);
+        Iterator<AccessEntity> myIterator=accessEntityList.iterator();
+        List<AccessRequest> accessRequests = new ArrayList<>();
+        while (myIterator.hasNext()){
+            accessRequests.add(mapper.toAccessRequest(myIterator.next()));
+        }
+        return accessRequests;
     }
 
     public AccessRequest saveAccess(AccessRequest accessRequest){
