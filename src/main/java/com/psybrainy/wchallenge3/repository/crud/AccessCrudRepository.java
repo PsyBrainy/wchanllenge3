@@ -12,7 +12,7 @@ public interface AccessCrudRepository extends CrudRepository<AccessEntity,Long> 
 
     Optional<AccessEntity> findByIdAlbumAndUserId(Long idAlbum, Long userId);
 
-    Optional<List<AccessEntity>> findByIdAlbumAndAccess(Long idAlbum, String access);
+    List<AccessEntity> findByIdAlbumAndAccess(Long idAlbum, String access);
 
 
 }
