@@ -14,11 +14,11 @@ public class AccessService {
     @Autowired
     AccessRepository accessRepository;
 
-    public AccessRequest updatePermissionByAlbum(AccessRequest accessRequest, Long albumId, Long userId) {
+    public Optional<AccessRequest> updatePermissionByAlbum(AccessRequest accessRequest, Long albumId, Long userId) {
         return accessRepository.updatePermissionByAlbum(accessRequest,albumId,userId);
     }
 
-    public List<AccessRequest> getByAccess(Long albumId, String access) {
+    public Optional<List<AccessRequest>> getByAccess(Long albumId, String access) {
         return accessRepository.getByAlbunAndAccess(albumId,access);
     }
 }

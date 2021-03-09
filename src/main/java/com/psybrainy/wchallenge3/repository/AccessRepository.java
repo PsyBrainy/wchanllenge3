@@ -7,11 +7,8 @@ import com.psybrainy.wchallenge3.repository.mapper.AccessMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-
+import javax.persistence.EntityNotFoundException;
+import java.util.*;
 
 
 @Repository
@@ -24,14 +21,20 @@ public class AccessRepository {
     AccessMapper mapper;
 
 
-    public List<AccessRequest> getByAlbunAndAccess(Long albumId, String access){
-        List<AccessEntity> accessEntityList = (List<AccessEntity>) accessCrud.findByIdAlbumAndAccess(albumId,access);
+    public Optional<List<AccessRequest>> getByAlbunAndAccess(Long albumId, String access){
+
+        List<AccessEntity> accessEntityList = accessCrud.findByIdAlbumAndAccess(albumId,access)
+                .orElseThrow(EntityNotFoundException::new) ;
+
         Iterator<AccessEntity> myIterator = accessEntityList.iterator();
-        List<AccessRequest> accessRequests = new ArrayList<>();
+
+        Optional<List<AccessRequest>> accessRequests = Optional.of(new ArrayList<>());
+
         while (myIterator.hasNext()){
-            accessRequests.add(mapper.toAccessRequest(myIterator.next()));
+            accessRequests.orElse(new ArrayList<>()).add(mapper.toAccessRequest(myIterator.next()));
         }
         return accessRequests;
+
     }
 
     public AccessRequest saveAccess(AccessRequest accessRequest){
@@ -42,21 +45,19 @@ public class AccessRepository {
     public Optional<AccessRequest> findByIdAlbumAndUserId(Long albumId, Long userId){
         Optional<AccessEntity> accessEntity = accessCrud.findByIdAlbumAndUserId(albumId, userId);
 
-        return Optional.of(mapper.toAccessRequest(accessEntity.get()));
+        return Optional.of(mapper.toAccessRequest(accessEntity
+                .orElseThrow(EntityNotFoundException::new)));
     }
 
 
-    public AccessRequest updatePermissionByAlbum(AccessRequest access, Long albumId, Long userId) {
+    public Optional<AccessRequest> updatePermissionByAlbum(AccessRequest access, Long albumId, Long userId) {
 
         Optional<AccessRequest> accessRequest = findByIdAlbumAndUserId(albumId,userId);
 
-        Optional<AccessRequest> accessSave = Optional
-                .of(new AccessRequest(accessRequest
-                        .get().getAccessId(), accessRequest.get().getAlbumId(),accessRequest.get()
-                        .getAlbumTitle() , accessRequest.get().getUserId(), access.getAccess()));
+        accessRequest.orElseThrow(EntityNotFoundException::new).setAccess(access.getAccess());
 
-        access = accessSave.get();
+        saveAccess(accessRequest.orElseThrow(EntityNotFoundException::new));
 
-        return saveAccess(access);
+        return accessRequest;
     }
 }
