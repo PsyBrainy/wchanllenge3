@@ -14,6 +14,10 @@ public class AlbumService {
     @Autowired
     AlbumRepository albumRepository;
 
+    public List<AlbumRequest> getAll(){
+        return albumRepository.findAllAlbums();
+    }
+
     public AlbumRequest getById(Long id){
         return albumRepository.findById(id);
     }

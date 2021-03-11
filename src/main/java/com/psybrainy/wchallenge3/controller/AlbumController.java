@@ -6,6 +6,8 @@ import com.psybrainy.wchallenge3.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/albums")
 public class AlbumController {
@@ -13,6 +15,10 @@ public class AlbumController {
     @Autowired
     private AlbumService albumService;
 
+    @GetMapping
+    public List<AlbumRequest> getAll(){
+        return albumService.getAll();
+    }
 
     @GetMapping("/{id}")
     public AlbumRequest getById(@PathVariable("id") Long id){
